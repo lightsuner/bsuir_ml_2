@@ -1,0 +1,4 @@
+lab_1/src/*.mat
+lab_1/src/*.tar.gz
+lab_1/src/notMNIST_small
+lab_1/src/notMNIST_large
