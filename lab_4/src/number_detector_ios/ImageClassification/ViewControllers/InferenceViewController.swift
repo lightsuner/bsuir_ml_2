@@ -13,6 +13,20 @@
 // limitations under the License.
 
 import UIKit
+import VideoToolbox
+
+extension UIImage {
+    public convenience init?(pixelBuffer: CVPixelBuffer) {
+        var cgImage: CGImage?
+        VTCreateCGImageFromCVPixelBuffer(pixelBuffer, options: nil, imageOut: &cgImage)
+
+        guard let cgImageSafe = cgImage else {
+            return nil
+        }
+
+        self.init(cgImage: cgImageSafe)
+    }
+}
 
 // MARK: InferenceViewControllerDelegate Method Declarations
 protocol InferenceViewControllerDelegate {
@@ -58,6 +72,7 @@ class InferenceViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var threadStepper: UIStepper!
   @IBOutlet weak var stepperValueLabel: UILabel!
+  @IBOutlet weak var imagePreview: UIImageView!
 
   // MARK: Constants
   private let normalCellHeight: CGFloat = 27.0
@@ -88,6 +103,14 @@ class InferenceViewController: UIViewController {
 
   }
 
+  open func reloadImage() {
+    guard let result = inferenceResult, (result.image != nil) else {
+      return
+    }
+    
+    imagePreview.image = UIImage(pixelBuffer: result.image!)
+  }
+    
   override func viewDidLoad() {
     super.viewDidLoad()
 

@@ -21,6 +21,7 @@ import Accelerate
 struct Result {
   let inferenceTime: Double
   let inferences: Inference
+  let image: CVPixelBuffer?
 }
 
 /// An inference from invoking the `Interpreter`.
@@ -167,7 +168,7 @@ class ModelDataHandler {
     let result = processResult(results: results)
 
     // Return the inference time and inference results.
-    return Result(inferenceTime: interval, inferences: result)
+    return Result(inferenceTime: interval, inferences: result, image: thumbnailPixelBuffer)
   }
 
   // MARK: - Private Methods

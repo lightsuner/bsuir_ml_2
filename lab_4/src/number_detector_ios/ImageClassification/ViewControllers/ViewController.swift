@@ -170,6 +170,7 @@ extension ViewController: CameraFeedManagerDelegate {
       self.inferenceViewController?.inferenceResult = self.result
       self.inferenceViewController?.resolution = resolution
       self.inferenceViewController?.tableView.reloadData()
+      self.inferenceViewController?.reloadImage()
     }
   }
 
